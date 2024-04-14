@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form id="videoForm" asp-action="TurnVideoToSummary" asp-controller="Blog" method="post">
+    <link rel="stylesheet" href="~/css/Style.css" />
+    <div class="flex flex-col items-center justify-center min-h-screen py-12 gap-4 text-center">
+        <div class="flex flex-col items-center gap-2 text-center">
+            <h1 class="text-3xl font-bold">URL to Summary</h1>
+            <p class="text-gray-500 dark:text-gray-400">Enter a website URL to generate a summary</p>
+        </div>
+        <div class="w-full max-w-sm flex flex-col gap-2">
+            <div class="relative flex w-full rounded-lg border border-gray-200 dark:border-gray-800">
+                <span class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">&#x1F517;</span>
+                <input class="w-full min-h-[40px] rounded-lg appearance-none pl-8"  name="videoId" />
+            </div>
+            <button class="w-full" type="submit">Generate Summary</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    function saveSummary() {
+        // Placeholder function for saving the summary
+        alert("Summary saved!");
+    }
+
+    $(document).ready(function () {
+        $("#videoForm").submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Check if the form data is valid
+            if (!$(this).valid()) {
+                return;
+            }
+
+            var videoId = $("input[name='videoId']").val(); // Get the videoId from the input field
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("TurnVideoToSummary", "Blog")", // URL of the action method
+                data: { videoId: videoId }, // Data to be sent to the server
+                success: function (response) {
+                    // Update the textarea with the transcript received from the server
+                    $("textarea").val(response);
+                }
+            });
+        });
+    });
+</script>

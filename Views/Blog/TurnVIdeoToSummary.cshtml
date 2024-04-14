@@ -1,0 +1,12 @@
+﻿<form id="videoForm" asp-action="SavedSummary" asp-controller="Blog" method="post">
+    <link rel="stylesheet" href="~/css/Style.css" />
+    <h2 class="text-lg font-semibold">Summary</h2>
+    <div class="rounded-lg border border-gray-200 dark:border-gray-800">
+        <div style="width: 100%; height: auto; overflow-y: auto;">
+            @Html.Raw(ViewData["Transcript"])
+        </div>
+        <input type="hidden" name="VideoName" value="@ViewData["VideoID"]" />
+    </div>
+    <input type="hidden" name="Transcript" value="@ViewData["Transcript"]" />
+    <button type="submit">Save Summary</button>
+</form>
